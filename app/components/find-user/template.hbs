@@ -1,0 +1,6 @@
+<label for="find-user">Nome do usuário:</label>
+
+<Input @id="find-user" @type="text" @value={{this.user}} @input={{action (mut this.user) value="target.value" }}
+  @enter={{this.searchUser}} @focus-in={{this.onFocusIn}} @focus-out={{this.onFocusOut}} />
+
+<button type="button" {{on "click" this.searchUser}}>Buscar Usuário</button>

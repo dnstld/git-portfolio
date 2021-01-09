@@ -21,6 +21,9 @@ module.exports = function(defaults) {
           }
         ],
       }
+    },
+    'ember-fetch': {
+      preferNative: true
     }
   });
 

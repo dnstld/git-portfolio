@@ -1,32 +1,78 @@
 <div>
-  <p>login: {{this.model.login}}</p>
-  <p>id: {{this.model.id}}</p>
-  <p>node_id: {{this.model.node_id}}</p>
-  <p>avatar_url: {{this.model.avatar_url}}</p>
-  <p>url: {{this.model.url}}</p>
-  <p>html_url: {{this.model.html_url}}</p>
-  <p>followers_url: {{this.model.followers_url}}</p>
-  <p>following_url: {{this.model.following_url}}</p>
-  <p>gists_url: {{this.model.gists_url}}</p>
-  <p>starred_url: {{this.model.starred_url}}</p>
-  <p>subscriptions_url: {{this.model.subscriptions_url}}</p>
-  <p>organizations_url: {{this.model.organizations_url}}</p>
-  <p>repos_url: {{this.model.repos_url}}</p>
-  <p>events_url: {{this.model.events_url}}</p>
-  <p>received_events_url: {{this.model.received_events_url}}</p>
-  <p>type: {{this.model.type}}</p>
-  <p>site_admin: {{this.model.site_admin}}</p>
-  <p>company: {{this.model.company}}</p>
-  <p>blog: {{this.model.blog}}</p>
-  <p>location: {{this.model.location}}</p>
-  <p>email: {{this.model.email}}</p>
-  <p>hireable: {{this.model.hireable}}</p>
-  <p>bio: {{this.model.bio}}</p>
-  <p>twitter_username: {{this.model.twitter_username}}</p>
-  <p>public_repos: {{this.model.public_repos}}</p>
-  <p>public_gists: {{this.model.public_gists}}</p>
-  <p>followers: {{this.model.followers}}</p>
-  <p>following: {{this.model.following}}</p>
-  <p>created_at: {{this.model.created_at}}</p>
-  <p>updated_at: {{this.model.updated_at}}</p>
+  <section class="flex flex-col">
+    <div class="flex justify-between">
+      <div class="flex gap-4 w-full text-xs text-center mb-4">
+        <div>
+          <p>Repos</p>
+          <p class="text-sm font-bold">{{this.model.public_repos}}</p>
+        </div>
+        <div>
+          <p>Gists</p>
+          <p class="text-sm font-bold">{{this.model.public_gists}}</p>
+        </div>
+        <div>
+          <p>Seguidores</p>
+          <p class="text-sm font-bold">{{this.model.followers}}</p>
+        </div>
+        <div>
+          <p>Seguindo</p>
+          <p class="text-sm font-bold">{{this.model.following}}</p>
+        </div>
+      </div>
+
+      <aside class="flex md:gap-2">
+        <a href={{this.model.twitter_username}} target="blank" title={{this.model.twitter_username}} class="p-2">
+          <FaIcon @icon="twitter" @prefix="fab" class="text-xl" />
+        </a>
+        <a href={{this.model.blog}} target="blank" title={{this.user}} class="p-2">
+          <FaIcon @icon="desktop" class="text-xl" />
+        </a>
+        <a href={{concat "mailto:" this.model.email}} target="blank" title={{this.model.email}} class="p-2">
+          <FaIcon @icon="envelope" class="text-xl" />
+        </a>
+      </aside>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-center gap-2 p-4 border rounded mb-4">
+      <div
+        class="flex-shrink-0 h-20 md:h-32 w-20 md:w-32 rounded-full overflow-hidden flex items-center justify-center border-2 md:border-4 border-gray-300 {{if this.model.hireable "
+        border-green-500"}}">
+        <img src={{this.model.avatar_url}} alt={{this.model.name}}>
+      </div>
+
+      <div class="flex flex-col w-full px-4">
+        <header class="flex flex-col items-center sm:items-baseline">
+          <h1 class="inline-flex items-center text-primary text-2xl antialiased font-semibold tracking-wide">
+            {{#if this.model.site_admin}}
+            <FaIcon @icon="user-shield" class="text-xl text-yellow-400 mr-2" />
+            {{/if}}
+            {{this.model.name}}
+          </h1>
+
+          <small class="text-gray-500">
+            <FaIcon @icon="map-marker-alt" />
+            {{this.model.location}}
+          </small>
+
+          <p class="italic mt-2">
+            {{this.model.bio}}
+          </p>
+        </header>
+
+        <footer class="flex justify-between w-full text-gray-500 mt-2">
+          <a href={{this.model.html_url}} target="blank" title={{this.user}} class="leading-none">
+            <small>
+              <FaIcon @icon="github" @prefix="fab" />
+              Criação: {{moment-calendar this.model.created_at}}
+            </small>
+          </a>
+          <small>
+            <FaIcon @icon="user-edit" />
+            Última atualização: {{moment-to this.model.updated_at}}
+          </small>
+        </footer>
+      </div>
+
+    </div>
+  </section>
 </div>

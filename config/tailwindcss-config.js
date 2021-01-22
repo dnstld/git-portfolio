@@ -29,6 +29,12 @@ module.exports = {
       indigo: colors.indigo,
       purple: colors.violet,
       pink: colors.pink,
+
+      primary: {
+        light: colors.coolGray[200],
+        DEFAULT: colors.coolGray[800]
+      },
+      body: colors.coolGray[600],
     },
     spacing: {
       px: '1px',

@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { isEmpty } from '@ember/utils';
 
 import CONSTANTS from '../../constants';
 
@@ -11,9 +10,13 @@ export default class FindUserComponent extends Component {
 
   @tracked user = CONSTANTS.defaultGitUser;
 
+  @tracked lastUser = '' || CONSTANTS.defaultGitUser;
+
   @action
   searchUser() {
     const queryParams = { user: this.user };
+
+    this.lastUser = this.user;
 
     this.router.transitionTo({ queryParams });
   }
@@ -25,8 +28,8 @@ export default class FindUserComponent extends Component {
 
   @action
   onFocusOut() {
-    if (isEmpty(this.user)) {
-      this.user = CONSTANTS.defaultGitUser;
+    if (this.user.length === 0 && this.lastUser.length !== 0) {
+      this.user = this.lastUser;
     }
   }
 }
